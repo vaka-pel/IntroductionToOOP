@@ -1,6 +1,8 @@
 #include<iostream>
 using namespace std;
 
+#define delimiter "\n---------------------------------------------\n"
+
 class Point
 {
 		double x;
@@ -137,7 +139,7 @@ void main()
 #endif  DISTANCE_CHECK
 
 
-#ifdef CONSTRUCTOR_CHECK
+#ifdef CONSTRUCTORS_CHECK
 	Point A;		//Здесь мы просто создаем объект, и для этого неявно вызывается конструктор по умолчанию
 	A.print();
 	//{
@@ -161,7 +163,7 @@ void main()
 	E = D;			//Assignment operator
 	E.print();
 
-#endif  CONSTRUCTOR_CHECK
+#endif  CONSTRUCTORS_CHECK
 
 
 #ifdef ASSIGNMENT_CHECK
