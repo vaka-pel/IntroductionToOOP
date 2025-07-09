@@ -111,8 +111,20 @@ public:
 		Fraction old = *this;
 		integer++;
 		return old;
-	}
 
+	} 
+	 Fraction& operator--()
+	 {
+		 integer--;
+		 return *this;
+	 }
+
+	 const Fraction& operator--(int)
+	{
+		Fraction old = *this;
+		integer--;
+		return old;
+	}
 	                 //Methods:
 	Fraction& to_improper()
 	{
@@ -205,6 +217,50 @@ Fraction operator / (const Fraction& left, const Fraction& right)
 {
 	return left * right.inverted();
 }
+                         // Comparison operators
+bool operator ==(Fraction left, Fraction right)
+{
+	left.to_improper();
+	right.to_improper();
+	return
+		left.get_numerator() * right.get_denominator() ==
+		right.get_numerator() * left.get_denominator();
+
+}
+
+bool operator!=(const Fraction& left, const Fraction& right)
+{
+	return !(left == right);
+}
+
+bool operator>(Fraction left, Fraction right)
+{
+    left.to_improper();
+	right.to_improper();
+	return
+	    left.get_numerator() * right.get_denominator() >
+	    right.get_numerator() * left.get_denominator();
+}
+bool operator<(Fraction left, Fraction right)
+{
+    left.to_improper();
+	right.to_improper();
+	return
+	    left.get_numerator() * right.get_denominator() <
+	    right.get_numerator() * left.get_denominator();
+}
+
+bool operator>=(const Fraction& left, const Fraction& right)
+{
+	
+	//return left > right || left == right;
+	return !(left < right);
+}
+bool operator<=(const Fraction& left, const Fraction& right)
+{
+	//return left < right || left == right;
+	return !(left > right);
+}
 //#define CONSTRUCTORS_CHECK
 //#define ARITHMETICAL_OPERATORS_CHECK 
 //#define INCREMENTO_DECREMENTO_CHECK
@@ -226,7 +282,7 @@ void main()
 	Fraction D(2, 3, 4);
 	D.print();
 
-#endif // CONSTRUCTORS_CHECK
+#endif CONSTRUCTORS_CHECK
 
 
 #ifdef ARITHMETICAL_OPERATORS_CHECK
@@ -258,17 +314,20 @@ void main()
 #ifdef INCREMENTO_DECREMENTO_CHECK
 	double a = 2;
 	double b = 0;
-	b += a++;
+	//b += a++;
+	b += a--;
 	cout << a << endl;
 	cout << b << endl;
 
 	Fraction A(2, 3, 4);
 	Fraction B;
-	B += A++;
+	//B *= A++;
+	B *= A--;
 	A.print();
 	B.print();
 #endif  INCREMENTO_DECREMENTO_CHECK
 
-
+	cout << (2 == 3) << endl;
+	cout << (Fraction(1, 2) >= Fraction(5, 10)) << endl;
 
 }
