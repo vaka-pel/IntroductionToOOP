@@ -261,9 +261,29 @@ bool operator<=(const Fraction& left, const Fraction& right)
 	//return left < right || left == right;
 	return !(left > right);
 }
+std::ostream& operator<<(std::ostream& os, const Fraction& obj)
+{
+	if (obj.get_integer())os << obj.get_integer();
+	if (obj.get_numerator())
+	{
+		if (obj.get_integer())os << "(";
+		os << obj.get_numerator() << "/" << obj.get_denominator();
+		if (obj.get_integer())os << ")";
+
+	}
+	else if (obj.get_integer() == 0)os << 0;
+	return os;
+
+}
+
+
+
+
 //#define CONSTRUCTORS_CHECK
 //#define ARITHMETICAL_OPERATORS_CHECK 
 //#define INCREMENTO_DECREMENTO_CHECK
+//#define COMPARISON_OPERATORS
+#define STREAMS_CHECK
 
 void main()
 {
@@ -282,8 +302,7 @@ void main()
 	Fraction D(2, 3, 4);
 	D.print();
 
-#endif CONSTRUCTORS_CHECK
-
+#endif //CONSTRUCTORS_CHECK
 
 #ifdef ARITHMETICAL_OPERATORS_CHECK
 	double a = 2.7;
@@ -309,7 +328,7 @@ void main()
 	C = A + B;
 	C.print();
 
-#endif  ARITHMETICAL_OPERATORS_CHECK
+#endif  //ARITHMETICAL_OPERATORS_CHECK
 
 #ifdef INCREMENTO_DECREMENTO_CHECK
 	double a = 2;
@@ -325,9 +344,20 @@ void main()
 	B *= A--;
 	A.print();
 	B.print();
-#endif  INCREMENTO_DECREMENTO_CHECK
+#endif  //INCREMENTO_DECREMENTO_CHECK
+
+#ifdef COMPARISON_OPERATORS
 
 	cout << (2 == 3) << endl;
 	cout << (Fraction(1, 2) >= Fraction(5, 10)) << endl;
+#endif // COMPARISON_OPERATORS
+
+#ifdef STREAMS_CHECK
+	Fraction A(2, 3, 4);
+	cout << "¬ведите простую дробь: ";
+	cin >> A;
+	cout << A << endl;
+#endif // STREAMS_CHECK
+
 
 }
