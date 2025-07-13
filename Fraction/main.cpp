@@ -45,13 +45,23 @@ public:
 		this->denominator = 1;
 		cout << "DefaultConstructor:\t" << this << endl;
 	}
-	Fraction(int integer)
+	 explicit Fraction(int integer)
 	{
 		this->integer = integer;
 		this->numerator = 0;
 		this->denominator = 1;
 		cout << "SingleArgumentConstructor:" << this << endl;
 	}
+	 Fraction(double decimal) // decimal десятичная дробь
+	 {
+		 decimal += 1e-10;
+		 integer = decimal;  // получаем целую часть дроби
+		 decimal -= integer;  //убираем целую часть из десятичной дроби
+		 denominator = 1e+9;       // получаем максимально возможный знаменатель 1000000000;
+		 numerator = decimal * denominator; // вытаскиваем дробную часть в числитель
+		 reduce();
+		 cout << "SingleArgumentConstructor:" << this << endl;
+	 }
 	Fraction(int numerator, int denominator)
 	{
 		this->integer = 0;
@@ -125,6 +135,13 @@ public:
 		integer--;
 		return old;
 	}
+	 //     Type-cast operators
+
+	 operator int()const
+	 {
+		 return integer + numerator / denominator;
+	 }
+
 	                 //Methods:
 	Fraction& to_improper()
 	{
@@ -283,8 +300,10 @@ std::ostream& operator<<(std::ostream& os, const Fraction& obj)
 //#define ARITHMETICAL_OPERATORS_CHECK 
 //#define INCREMENTO_DECREMENTO_CHECK
 //#define COMPARISON_OPERATORS
-#define STREAMS_CHECK
-
+//#define STREAMS_CHECK
+//#define CONVERTIONS_FROM_OTHER_CLASS
+//#define CONVERTIONS_FROM_CLASS_TO_OTHER
+#define HAVE_A_NICE_DAY
 void main()
 {
 	setlocale(LC_ALL, "");
@@ -358,6 +377,33 @@ void main()
 	cin >> A;
 	cout << A << endl;
 #endif // STREAMS_CHECK
+
+#ifdef CONVERSION_FROM_OTHER_TO_CLASS
+	Fraction A = (Fraction)5;  // single-Argument constructor
+	cout << A << endl;
+
+	Fraction B;             // ArgConstructor -> CopyAssignment
+	B = Fraction(8);         // Single argument Constructor создает операцию присваивания, а оператор присваивания просто записывает
+
+#endif // CONVERSION_FROM_OTHER_TO_CLASS
+
+#ifdef CONVERTIONS_FROM_CLASS_TO_OTHER
+
+	Fraction A(2, 3, 4);
+	A.to_improper().print();
+	int a = A;
+	cout << a << endl;
+
+
+
+#endif // CONVERTIONS_FROM_CLASS_TO_OTHER
+
+#ifdef HAVE_A_NICE_DAY
+
+	Fraction A = 3.33;    // conversion from "double" to "Fraction"
+	cout << A << endl;
+
+#endif // HEADSHOT
 
 
 }
